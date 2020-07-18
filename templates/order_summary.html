@@ -1,0 +1,205 @@
+{% extends "base.html" %}
+ {% load thumbnail %}
+ {% load static %} 
+{% load humanize %} {% block head_title %}
+<title>Cart - Jane's Fashion</title>
+{% endblock %} {% block content %}
+
+<div
+  class="hero-wrap hero-bread" style="background-image: url({% static 'images/shopbg.jpg' %});"
+>
+  <div class="container">
+    <div
+      class="row no-gutters slider-text align-items-center justify-content-center"
+    >
+      <div class="col-md-9 text-white text-center">
+        <p class="breadcrumbs">
+          <span class="mr-2 text-white"
+            ><a href="{% url 'core:home' %}" class="text-white">Jane's</a></span
+          >
+          <span class="text-white">Fashion</span>
+        </p>
+        <h1 class="text-white mb-0 bread">Cart</h1>
+      </div>
+    </div>
+  </div>
+</div>
+<section class="ftco-section ftco-cart">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="cart-list">
+          <table class="table">
+            <thead class="thead-primary">
+              <tr class="text-center">
+                <th>#</th>
+                <th>&nbsp;</th>
+                <th>Product</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for order_item in object.items.all %}
+              <tr class="text-center">
+                <td class="product-remove">
+                  <a
+                    href="{% url 'core:remove-from-cart' order_item.item.slug %}"
+                    ><span class="text-white ion-ios-close"></span
+                  ></a>
+                </td>
+
+                {% thumbnail order_item.item.image '150x150' crop="center" as jane %}
+                <td class="image-prod">
+                  <div
+                    class="img"
+                    style="background-image:url( '{{ jane.url }}' );"
+                  ></div>
+                </td>
+
+                {% endthumbnail %}
+                <td class="product-name">
+                  <h3>{{ order_item.item.title }}</h3>
+                </td>
+
+                <td class="price">
+                  &#8358; {{ order_item.item.price|intcomma }}
+                </td>
+
+                <td class="quantity">
+                  <div class="input-group mb-">
+                    <div class="input-group">
+                      <span class="input-group-btn mr-2">
+                        <a
+                          href="{% url 'core:remove-single-item-from-cart' order_item.item.slug %}"
+                        >
+                          <button
+                            type="button"
+                            class="quantity-left-minus btn"
+                            data-type="minus"
+                            data-field=""
+                          >
+                            <i class="ion-ios-remove"></i>
+                          </button>
+                        </a>
+                      </span>
+                      <p
+                        id="quantity"
+                        name="quantity"
+                        class="text-center pt-3 quantity form-control input-number"
+                      >
+                        {{ order_item.quantity }}
+                      </p>
+                      <span class="input-group-btn ml-2">
+                        <a
+                          href="{% url 'core:add-to-cart' order_item.item.slug %}"
+                        >
+                          <button
+                            type="button"
+                            class="quantity-right-plus btn"
+                            data-type="plus"
+                            data-field=""
+                          >
+                            <i class="ion-ios-add"></i>
+                          </button>
+                        </a>
+                      </span>
+                    </div>
+                  </div>
+                </td>
+
+                <td class="total">
+                  &#8358; {{ order_item.get_total_item_price|intcomma }}
+                </td>
+              </tr>
+              <!-- END TR-->
+              {% empty %}
+              <tr class="text-center">
+                <p>YOUR CART IS EMPTY</p>
+              </tr>
+
+              <tr>
+                <td colspan="12">
+                  <a
+                    href="{% url 'core:shop'%}"
+                    class="btn btn-primary py-3 px-4 float-left ml-2"
+                    >Continue Shopping</a
+                  >
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    {% if object.get_total %}
+    <div class="row justify-content-end">
+      <div class="col-md-6 mt-5 cart-wrap">
+        <p class="text-center">
+          <a href="{% url 'core:checkout' %}" class="btn btn-primary py-3 px-3"
+            >Proceed To Checkout</a
+          >
+        </p>
+      </div>
+    </div>
+
+    {% endif %}
+  </div>
+</section>
+
+<section class="ftco-section">
+  <div class="container">
+    <div class="row no-gutters">
+      {% for item in shoptop %}
+      <div class="col-md-6 pb-2 pr-1">
+        <a href="#">
+          <img
+            src="{{item.image.url}}"
+            style="width: 100%; height: 250px;"
+            lass="choose-wrap divider-one  img-fluid mb-3 d-flex align-items-end"
+            alt=""
+          />
+
+          <div class="text text-center text-white px-2"></div>
+        </a>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  <br /><br />
+</section>
+
+<script>
+  $(document).ready(function () {
+    var quantitiy = 0;
+    $(".quantity-right-plus").click(function (e) {
+      // Stop acting like a button
+      e.preventDefault();
+      // Get the field name
+      var quantity = parseInt($("#quantity").val());
+
+      // If is not undefined
+
+      $("#quantity").val(quantity + 1);
+
+      // Increment
+    });
+
+    $(".quantity-left-minus").click(function (e) {
+      // Stop acting like a button
+      e.preventDefault();
+      // Get the field name
+      var quantity = parseInt($("#quantity").val());
+
+      // If is not undefined
+
+      // Increment
+      if (quantity > 0) {
+        $("#quantity").val(quantity - 1);
+      }
+    });
+  });
+</script>
+{% endblock content %}

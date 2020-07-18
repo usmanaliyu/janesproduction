@@ -1,0 +1,9 @@
+{% load humanize %}
+
+
+We have received an order of {% for order_item in order.items.all %} {{ order_item.quantity }}
+{{order_item.item.title }} {% endfor %} for {{amount|intcomma}} with the reference number of {{ref}} from {{name}} {{name_2}} with {{address}} {{state}} {{country}} with the phone number {{number}}. 
+
+
+
+Cheers!!

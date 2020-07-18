@@ -1,0 +1,132 @@
+{% load static %}
+{% load humanize %}
+
+{% load paystack %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>JanePay</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet" />
+
+    <link rel="stylesheet" href="{% static 'css/open-iconic-bootstrap.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/animate.css' %}" />
+
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/owl.theme.default.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}" />
+
+    <link rel="stylesheet" href="{% static 'css/aos.css' %}" />
+
+    <link rel="stylesheet" href="{% static 'css/ionicons.min.css' %}" />
+
+    <link rel="stylesheet" href="{% static 'css/bootstrap-datepicker.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/jquery.timepicker.css' %}" />
+
+    <link rel="stylesheet" href="{% static 'css/flaticon.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/icomoon.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+</head>
+
+<body class="goto-here">
+    <div class="mt-5 pt-4" id="messages">
+        {% if messages %} {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        {% endfor %} {% endif %}
+    </div>
+
+    <div class="container pt-5">
+        <div class="row pt-3">
+            <div class="col-md-6 mx-auto">
+                <p class="h6 float-left">ORDER SUMMARY</p>
+                <a href="#" class="text float-right text-primary" data-toggle="modal" data-target="#myModal">
+                    Order Details
+                    >></a>
+            </div>
+        </div>
+        <div class="row pt-1">
+            <div class="col-md-6 mx-auto">
+                <div class="card">
+                    <div class="card-body">
+                        <h6 class="float-left">TOTAL TO PAY</h6>
+
+                        <p class="float-right">&#8358; {{amount|intcomma}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row pt-3">
+            <div class="col-md-6 mx-auto">
+                <p class="h6">YOU WILL PAY WITH</p>
+
+                <div class="card">
+                    <div class="card-body">
+                        {% paystack_button amount=amount button_class="btn btn-primary btn-block" email=email %}
+                    </div>
+                </div>
+                <div class="text-center card-footer">
+                    By tapping "PAY" you agree to the <a href="{% url 'core:terms' %}">Terms & Conditions</a>
+                </div>
+            </div>
+        </div>
+        <div class="row pt-5">
+            <div class="col-md-6 mx-auto text-center">
+                <a class="h5 btn btn-secondary" href="{% url 'core:home' %}">BACK HOME</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header justify-content-center">
+                    <h4 class="title title-up">Cart Detail</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        <ion-icon name="close-outline"></ion-icon>
+                        <span class="text-primary icon-close"></span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <ul class="list-group mb-3 z-depth-1">
+                        {% for order_item in order.items.all %}
+                        <li class="list-group-item d-flex justify-content-between lh-condensed">
+                            <div>
+                                <h6 class="my-0">
+                                    {{ order_item.quantity }} {{ order_item.item.title }}
+                                </h6>
+                                <small class="text-muted"></small>
+                            </div>
+                            <span class="text-muted">&#8358; {{ order_item.get_final_price|intcomma }}</span>
+                        </li>
+                        {% endfor %}
+
+                        <li class="list-group-item d-flex justify-content-between">
+                            <span>Total (NAIRA)</span>
+                            <strong> &#8358; {{ order.get_total|intcomma }}</strong>
+                        </li>
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                        Close
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+{% include "scripts.html" %}
+
+</html>
+<script src="{% static 'js/fade.js' %}"></script>

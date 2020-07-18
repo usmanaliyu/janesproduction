@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block title %}
+Logged out
+{% endblock %}
+
+
+{% block content %}
+
+
+<section class="section gb ">
+            <div class="container">
+                <div class="boxed">
+                    <div class="row">
+                        <div class="col-md-8">
+
+
+
+
+   <div class="content boxed-comment clearfix">
+       <h4 align="center"> Logged out</h4>
+       <p>You have logged out sucessfully.</p>
+       <p><a href="{% url 'login' %}"> Login Again.</a></p>
+   </div>
+
+
+
+
+
+
+                      </div>
+                    </div>
+                </div>
+            </div>
+</section>
+{% endblock %}

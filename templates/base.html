@@ -1,0 +1,60 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta http-equiv="x-ua-compatible" content="ie=edge" />
+  {% block head_title %}{% endblock %} {% block extra_head %} {% endblock %}
+
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet" />
+
+  <link rel="stylesheet" href="{% static 'css/open-iconic-bootstrap.min.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/animate.css' %}" />
+
+  <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/owl.theme.default.min.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}" />
+
+  <link rel="stylesheet" href="{% static 'css/aos.css' %}" />
+
+  <link rel="stylesheet" href="{% static 'css/ionicons.min.css' %}" />
+
+  <link rel="stylesheet" href="{% static 'css/bootstrap-datepicker.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/jquery.timepicker.css' %}" />
+
+  <link rel="stylesheet" href="{% static 'css/flaticon.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/icomoon.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/lightslider.min.css' %}" />
+  
+</head>
+
+<body class="goto-here">
+  {% include "navbar.html" %}
+
+  <div class="mt-5 pt-4" id="messages">
+    {% if messages %} {% for message in messages %}
+    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+      {{ message }}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    {% endfor %} {% endif %}
+  </div>
+
+  {% block content %}
+  {% endblock content %}
+  {% block extra_body %}
+  {% endblock %}
+  {% include "footer.html" %}
+  {% include "scripts.html" %}
+  {% block extra_scripts %}
+  {% endblock extra_scripts %}
+</body>
+
+</html>
+<script src="{% static 'js/fade.js' %}"></script>

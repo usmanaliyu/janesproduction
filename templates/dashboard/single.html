@@ -1,0 +1,54 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="wrapper ">
+  {% include 'dashboard/sidebar.html' %}
+  <div class="main-panel" id="main-panel">
+    <!-- Navbar -->
+    {% include 'dashboard/navbar.html' %}
+    <!-- End Navbar -->
+    <div class="panel-header">
+      <div class="header text-center">
+        <h2 class="title">Order Item Name</h2>
+
+      </div>
+    </div>
+    <div class="content">
+      <div class="row">
+        <div class="col-md-12 mx-auto">
+          <div class="card">
+            <div class="card-header">
+              <h4 class="card-title">Order Name</h4>
+            </div>
+            <div class="card-body">
+
+              <div class="row">
+                <div class="col-md-8 mx-auto text-center"><img src="{% static 'assets/img/mike.jpg' %}" alt=""></div>
+                <div class="col-md-8 mx-auto">
+                  <h4> Stream 11-ak1035nr Intel X5 E8000 4gb Ram 32gb Ssd Windows 10</h4>
+                  <p class="text-justify">Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus reprehenderit
+                    libero corporis
+                    maiores nisi, eaque deleniti dolorum fugiat ex eius, dolores quidem blanditiis ducimus vero
+                    delectus quaerat odit consequatur. Exercitationem ex commodi modi fuga quod sapiente architecto
+                    vitae ab? Voluptate culpa quidem, explicabo veniam perferendis ad pariatur fugiat eligendi ullam
+                    fugit numquam qui praesentium illum alias nesciunt ipsam quo quod nostrum similique, beatae natus
+                    rerum! Deleniti sunt tenetur odio quisquam dolor. Minima ducimus officiis perspiciatis quo natus
+                    voluptatibus dicta aperiam porro dolorum molestias doloribus, blanditiis veritatis obcaecati
+                    voluptatum consectetur maxime voluptatem, iusto dolore sequi. Non iusto dolorum nostrum cum
+                    corporis.</p>
+                  <p>Placed on 20-06-2020</p>
+                  <p>Amount</p>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+{% endblock %}

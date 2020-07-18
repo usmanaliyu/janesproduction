@@ -1,0 +1,64 @@
+{% load cart_template_tags %}
+
+
+<nav class="navbar navbar-expand-lg  ftco_navbar bg-dark ftco-navbar-light " id="ftco-navbar">
+
+  <div class="container">
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav"
+      aria-expanded="false" aria-label="Toggle navigation">
+      <span class="text-white oi oi-menu"></span>
+    </button>
+    <a class="text-center navbar-brand" href="{% url 'core:home' %}">Jane's Fashion</a>
+    <span class="nav-item mobile-cart cta cta-colored"><a href="{% url 'core:order-summary' %}"
+        class="text-white nav-link">
+        <span class="text-white icon-shopping_cart"></span>
+        {{ request.user|cart_item_count }}
+      </a></span>
+
+
+
+
+    <div class="collapse navbar-collapse" id="ftco-nav">
+      <ul class="navbar-nav mx-auto">
+
+        <li class="nav-item"><a href="{% url 'core:home' %}" class="nav-link">Home</a></li>
+        <li class="nav-item"><a href="{% url 'core:shop' %}" class="nav-link">Shop</a></li>
+
+        <li class="nav-item"><a href="{% url 'core:about' %}" class="nav-link">About</a></li>
+        <li class="nav-item"><a href="{% url 'core:contact' %}" class="nav-link">Contact</a></li>
+
+
+
+
+      </ul>
+      <ul class="navbar-nav mr-auto">
+
+        <li class="nav-item cta cta-colored"><a href="{% url 'core:order-summary' %}" class="nav-link">
+            <span class="icon-shopping_cart"></span>
+            {{ request.user|cart_item_count }}
+          </a></li>
+
+
+        {% if request.user.is_authenticated %}
+
+
+        <li class="nav-item dropdown show">
+          <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="false"
+            aria-expanded="true"> {{ user.username|title }} <span class="icon-user"></span></a>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+            <a class="dropdown-item" href="{% url 'user-order' user  %}">
+              Dashboard</a>
+            <a class="dropdown-item" href="{% url 'account_logout' %}">
+              Logout</a>
+          </div>
+        </li>
+        {% else %}
+        <li class="nav-item"><a href="{% url 'account_login' %}" class="nav-link"> <span class="icon-user"></span>
+            Login</a></li>
+        {% endif %}
+      </ul>
+    </div>
+  </div>
+</nav>
+<!-- END nav -->

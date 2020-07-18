@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block title %}
+Signed up successfully
+{% endblock %}
+
+
+{% block content %}
+<section class="section gb ">
+            <div class="container">
+                <div class="boxed">
+                    <div class="row">
+                        <div class="col-md-8">
+
+
+
+
+   <div class="content boxed-comment clearfix">
+	   <h4 align="center">Signed up successfully </h4>
+<p> Your account is created successfully. Please<a href="{% url 'login' %}"> Login.</a> </p>
+
+
+
+						  </div>
+
+
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+</section>
+						{% endblock %}

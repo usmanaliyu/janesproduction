@@ -1,0 +1,404 @@
+{% extends "base.html" %}
+{% load static %}
+{% block head_title %}
+{% load crispy_forms_tags %}
+{% load humanize %}
+<title> {{ instance.title|title }} - Jane's Fashion </title>
+{% endblock %}
+{% block content %}
+
+<div class="hero-wrap hero-bread" style="background-image: url({{ instance.image.url }});">
+  <div class="container">
+    <div class="row no-gutters slider-text align-items-center justify-content-center">
+      <div class="col-md-9 text-center">
+        <p class="breadcrumbs"><span class="mr-2"><a href="{% url 'core:home' %}" class="text-white">Jane's</a></span>
+          <span class="mr-2"><a href="{% url 'core:shop' %}" class="text-white">Fashion</a></span></p>
+        <h1 class="mb-5 text-white bread mt-3">{{ instance.title|title }}</h1>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<section class="ftco-section">
+  <div class="container">
+    <div class="row">
+
+
+      <div class="col-lg-6 mb-5">
+
+
+
+
+
+        <div class="row s_product_inner ">
+          <div class="col-lg-11">
+            <div class="product_slider_img">
+              <div id="vertical">
+                {%if instance.image %}
+                <div data-thumb="{{ instance.image.url }}">
+                  <img src="{{ instance.image.url }}" class="img-fluid" alt="{{instance.title}}" />
+                </div>
+                {% endif %}
+                {%if instance.image_1 %}
+                <div data-thumb="{{ instance.image_1.url }}">
+                  <img src="{{ instance.image_1.url }}" class="img-fluid" alt="{{instance.title}}" />
+                </div>
+                {% endif %}
+                {%if instance.image_1 %}
+                <div data-thumb="{{ instance.image_2.url }}">
+                  <img src="{{ instance.image_2.url }}" class="img-fluid" alt="{{instance.title}}" />
+                </div>
+                {% endif %}
+                {%if instance.image_1 %}
+                <div data-thumb="{{ instance.image_3.url }}">
+                  <img src="{{ instance.image_3.url }}" class="img-fluid" alt="{{instance.title}}" />
+                </div>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+      </div>
+
+
+
+
+
+
+
+      <div class="col-lg-6 product-details pl-md-5 ">
+        <h2 class="font-weight-bold">{{ instance.title|title }}</h2>
+
+        <hr>
+        <p class="price">
+          <small><del>&#8358; {{ instance.discount_price|intcomma }}</del></small>
+          <br>
+          <h4>&#8358; {{ instance.price|intcomma }}</h4>
+        </p>
+
+        <div class="card">
+          <div class="card-body">
+            <p>{{ instance.description|truncatechars:15 }}</p>
+          </div>
+        </div>
+        <div class="row mt-4">
+          <div class="col-md-6">
+            <div class="form-group d-flex">
+
+            </div>
+          </div>
+
+
+
+
+
+        </div>
+        <p><a href="{{ instance.get_add_to_cart_url }}" class="btn btn-primary btn-block mr-2"> <span
+              class="text-white icon-shopping_cart"></span> Add to Cart</a></p>
+        <hr>
+      </div>
+    </div>
+
+
+
+
+    <div class="row mt-5">
+      <!-- <div class="col-md-12 nav-link-wrap">
+        <div class="nav nav-pills text-center" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+          <a class="nav-link active" id="v-pills-3-tab" data-toggle="pill" href="#v-pills-3" role="tab"
+            aria-controls="v-pills-3" aria-selected="false">Product Description</a>
+          <a class="nav-link  mr-lg-1" id="v-pills-1-tab" data-toggle="pill" href="#v-pills-1" role="tab"
+            aria-controls="v-pills-1" aria-selected="true">Reviews</a>
+          <a class="nav-link" id="v-pills-2-tab" data-toggle="pill" href="#v-pills-2" role="tab"
+            aria-controls="v-pills-2" aria-selected="false">Delivery & Returns </a>
+
+        </div>
+      </div> -->
+      <div class="col-md-12 mx-auto nav-link-wrap">
+
+        <div class="nav nav-pills d-flex text-center" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+          <a class="nav-link active " id="v-pills-3-tab" data-toggle="pill" href="#v-pills-3" role="tab"
+            aria-controls="v-pills-3" aria-selected="false">Product Description</a>
+          <a class="nav-link " id="v-pills-1-tab" data-toggle="pill" href="#v-pills-1" role="tab"
+            aria-controls="v-pills-1" aria-selected="true">Reviews</a>
+
+          <a class="nav-link  mr-lg-1" id="v-pills-2-tab" data-toggle="pill" href="#v-pills-2" role="tab"
+            aria-controls="v-pills-2" aria-selected="false">Delivery & Returns</a>
+
+
+        </div>
+      </div>
+      <div class="col-md-12 tab-wrap">
+        <div class="tab-content bg-light" id="v-pills-tabContent">
+
+          <div class="tab-pane fade" id="v-pills-1" role="tabpanel" aria-labelledby="day-1-tab v-pills-day-1-tab">
+
+
+            <div class="tab-pane fade" id="v-pills-1" role="tabpanel" aria-labelledby="v-pills-day-1-tab"></div>
+            <div class="row p-4">
+              <div class="col-md-6">
+                <h3 class="mb-1">{{comments.count}} Review{{comments.count|pluralize}} for {{instance.title|title}}
+                </h3>
+                {% for comment in comments  %}
+                <div class="review">
+                  <div class="user-img" style="background-image:url({{ instance.image.url }}"></div>
+
+                  <div class="desc">
+                    <h4>
+                      <span class="text-left">{{comment.user|title}}</span>
+                      <span class="text-right">{{comment.timestamp|timesince}} ago</span>
+                    </h4>
+
+                    <p>{{comment.content|title}}</p>
+                  </div>
+                  {% endfor %}
+                </div>
+
+
+              </div>
+              <div class="col-md-12">
+                <div class="rating-wrap">
+                  <h3 class="mb-4">Give a Review</h3>
+
+
+                  {% if request.user.is_authenticated %}
+                  <div class="col-md-12">
+                    <div class="col-md-12">
+                      <form method="POST" class=" p-5 contact-form">
+
+                        <div class="form-group">
+                          {% csrf_token %}
+                          {{comment_form|crispy}}
+                        </div>
+                        <div class="form-group">
+                          <input type="submit" value="Add Review" class="btn btn-primary py-3 px-3">
+                        </div>
+                      </form>
+
+                    </div>
+                    {% else %}
+
+                    <a class="btn btn-primary btn-block" href="{% url 'account_login' %}">Login To Review</a>
+
+
+                  </div>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="tab-pane fade show active" id="v-pills-3" role="tabpanel" aria-labelledby="v-pills-day-3-tab">
+            <div class="p-4">
+
+              <div class="card">
+
+                <div class="card-body">
+                  <h3 class="mb-4 font-weight-bold">{{instance.title|title}}</h3>
+                  <p>{{ instance.description}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="tab-pane fade" id="v-pills-2" role="tabpanel" aria-labelledby="v-pills-day-2-tab">
+            <div class="card">
+
+              <div class="card-body">
+
+                <h4>Delivery Information</h4>
+                <p>
+                  Normally delivered between 7-21 days. </p>
+                <h4>Return Policy</h4>
+                <p>
+                  Free return within 15 days</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 
+        <div class="tab-content bg-light" id="v-pills-tabContent">
+
+          <div class="tab-pane  fade" id="v-pills-1" role="tabpanel" aria-labelledby="day-1-tab v-pills-day-1-tab">
+
+
+            <div class="tab-pane fade" id="v-pills-1" role="tabpanel" aria-labelledby="v-pills-day-1-tab"></div>
+            <div class="row p-4">
+              <div class="col-md-6">
+                <h3 class="mb-1">{{comments.count}} Review{{comments.count|pluralize}} for {{instance.title|title}}
+                </h3>
+                {% for comment in comments  %}
+                <div class="review">
+                  <div class="user-img" style="background-image:url({{ instance.image.url }}"></div>
+
+                  <div class="desc">
+                    <h4>
+                      <span class="text-left">{{comment.user|title}}</span>
+                      <span class="text-right">{{comment.timestamp|timesince}} ago</span>
+                    </h4>
+
+                    <p>{{comment.content|title}}</p>
+                  </div>
+                  {% endfor %}
+                </div>
+
+
+              </div>
+              <div class="col-md-12">
+                <div class="rating-wrap">
+                  <h3 class="mb-4">Give a Review</h3>
+
+
+                  {% if request.user.is_authenticated %}
+                  <div class="col-md-12">
+                    <div class="col-md-12">
+                      <form method="POST" class=" p-5 contact-form">
+
+                        <div class="form-group">
+                          {% csrf_token %}
+                          {{comment_form|crispy}}
+                        </div>
+                        <div class="form-group">
+                          <input type="submit" value="Add Review" class="btn btn-primary py-3 px-3">
+                        </div>
+                      </form>
+
+                    </div>
+                    {% else %}
+
+                    <a class="btn btn-primary btn-block" href="{% url 'account_login' %}">Login To Review</a>
+
+
+                  </div>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="tab-pane show active fade " id="v-pills-3" role="tabpanel" aria-labelledby="v-pills-day-3-tab">
+            <div class="p-4">
+
+              <div class="card">
+
+                <div class="card-body">
+                  <h3 class="mb-4 font-weight-bold">{{instance.title|title}}</h3>
+                  <p>{{ instance.description}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="tab-pane fade" id="v-pills-2" role="tabpanel" aria-labelledby="v-pills-day-2-tab">
+            <div class="card">
+
+              <div class="card-body">
+
+                <h4>Delivery Information</h4>
+                <p>
+                  Normally delivered between 7-21 days. </p>
+                <h4>Return Policy</h4>
+                <p>
+                  Free return within 15 days</p>
+              </div>
+            </div>
+          </div>
+        </div> -->
+
+      </div>
+    </div>
+</section>
+
+<section class="ftco-section ">
+  <div class="container">
+    <div class="row no-gutters">
+      {% for instance in shoptop %}
+      <div class="col-md-6 pb-2 pr-1">
+        <a href="#">
+
+          <img src="{{instance.image.url}}" style="width:100%; height: 250px;"
+            lass="choose-wrap divider-one  img-fluid mb-3 d-flex align-items-end" alt="">
+
+          <div class="text text-center text-white px-2 ">
+
+
+          </div>
+
+        </a>
+      </div>
+      {% endfor %}
+
+    </div>
+  </div>
+  <br><br>
+</section>
+{% block script %}
+<script>
+  $(document).ready(function () {
+
+    var quantitiy = 0;
+    $('.quantity-right-plus').click(function (e) {
+
+      // Stop acting like a button
+      e.preventDefault();
+      // Get the field name
+      var quantity = parseInt($('#quantity').val());
+
+      // If is not undefined
+
+      $('#quantity').val(quantity + 1);
+
+
+      // Increment
+
+    });
+
+    $('.quantity-left-minus').click(function (e) {
+      // Stop acting like a button
+      e.preventDefault();
+      // Get the field name
+      var quantity = parseInt($('#quantity').val());
+
+      // If is not undefined
+
+      // Increment
+      if (quantity > 0) {
+        $('#quantity').val(quantity - 1);
+      }
+    });
+
+  });
+</script>
+
+
+<script src="{% static 'js/slider/jquery-1.12.1.min.js' %}"></script>
+<script src="{% static 'js/slider/jquery.magnific-popup.js' %}"></script>
+<script src="{% static 'js/slider/lightslider.min.js' %}"></script>
+<script src="{% static 'js/slider/lightslider.min.js' %}"></script>
+<script src="{% static 'js/slider/slick.min.js' %}"></script>
+<script src="{% static 'js/slider/jquery.counterup.min.js' %}"></script>
+<script src="{% static 'js/slider/jquery.ajaxchimp.min.js' %}"></script>
+<script src="{% static 'js/slider/custom.js' %}"></script>
+{% endblock %}
+
+{% endblock content %}

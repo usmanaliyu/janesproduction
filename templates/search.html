@@ -1,0 +1,163 @@
+{% extends "base.html" %}
+{% load static %}
+{% load humanize %}
+{% block head_title %}
+<title>{{ search_term|title }} - Jane's Fashion </title>
+{% endblock %}
+
+{% load thumbnail %}
+{% block content %}
+
+<div class="hero-wrap hero-bread"
+    style="background-image: url({% static 'images/shopbg.jpg' %}); background-position: center center; background-size:cover; width: 100%;">
+    <div class="container">
+        <div class="row no-gutters slider-text align-items-center justify-content-center">
+            <div class="col-md-9  text-center">
+                <p class="breadcrumbs  text-white"><span class="mr-2"><a href="{% url 'core:home' %}"
+                            class=" text-white">Jane's Fashion</a></span>
+                    / <span class=" text-white">{{ search_term }}</span>
+                </p>
+                <h1 class="mb-5  text-white bread">Search results for "{{ search_term }}"</h1>
+
+                <form action="/search" method="GET" class="search-form">
+                    <div class="form-group">
+                        <span class="icon ion-ios-search"></span>
+                        <input type="text" class="form-control" name="search_term"
+                            placeholder="Type a keyword and hit enter">
+
+
+                           
+                            
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="ftco-section bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-lg-10 order-md-last">
+                <div class="row">
+
+                    {% for item in instance %}
+                    {% if price <= item.price   %}
+
+                    <div class="col-lg-3 col-md-4 col-6 col-6">
+                        <div class="product d-flex flex-column">
+
+                            {% thumbnail item.image  "250x250" crop="center" as jane %}
+                            <a href="{{ item.get_absolute_url }}" class="img-prod"><img class="img-fluid"
+                                    width="{{ jane.width }}" src="{{ jane.url }}" height="{{jane.height}}"
+                                    alt="Janes fashion">
+                                {% endthumbnail %}
+                                {% if item.discount_percent %}
+                                <span class="status">{{ item.discount_percent }} % Off</span>
+                                {% endif %}
+                                <div class="overlay"></div>
+                            </a>
+                            <div class="text py-3 pb-4 px-3">
+                                <div class="d-flex">
+                                    <div class="cat">
+                                        <span>{{ item.category  }}</span>
+                                    </div>
+
+                                </div>
+                                <h3><a href="{{ item.get_absolute_url }}">{{ item.title }}</a></h3>
+                                <div class="pricing">
+                                    <p class="price">
+                                        {% if item.discount_price %}
+                                        <span class="mr-2 price-dc"> &#8358; {{item.discount_price|intcomma}}</span>
+                                        <br>
+                                        {% endif %}
+                                        <span class="price-sale">&#8358; {{item.price|intcomma}}</span></p>
+                                </div>
+                                <p class="bottom-area d-flex px-3">
+                                    <a href="{{ item.get_add_to_cart_url }}"
+                                        class="add-to-cart text-center btn btn-primary mr-1"><span>Add to cart <i
+                                                class="ion-ios-add ml-1"></i></span></a>
+
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% empty %}
+                    <h4>Search result for "{{ search_term}}" not found!!</h4>
+                    
+                    {% endfor %}
+
+
+
+
+                </div>
+                {% if is_paginated %}
+                <div class="row mt-5">
+                    <div class="col text-center">
+                        <div class="block-27">
+                            <ul>
+
+                                {% if page_obj.has_previous %}
+                                <li><a href="?page={{ page_obj.previous_page_number }}">&lt;</a></li>
+                                {% endif %}
+                                <li class="active"><a
+                                        href="?page={{ page_obj.number }}"><span>{{ page_obj.number }}</span></a></li>
+                                {% if page_obj.has_next %}
+                                <li><a href="?page={{ page_obj.next_page_number }}">&gt;</a></li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+
+            <div class="col-md-4 col-lg-2">
+                <div class="sidebar">
+
+                    <div class="sidebar-box-2">
+                        <h2 class="heading">Price Range</h2>
+                        <form method="post" class="colorlib-form-2">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="guests">Price from:</label>
+                                        <div class="form-field">
+                                            <i class="icon icon-arrow-down3"></i>
+                                            <select name="people" id="people" class="form-control">
+                                                <option value="#">1</option>
+                                                <option value="#">200</option>
+                                                <option value="#">300</option>
+                                                <option value="#">400</option>
+                                                <option value="#">1000</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="guests">Price to:</label>
+                                        <div class="form-field">
+                                            <i class="icon icon-arrow-down3"></i>
+                                            <select name="people" id="people" class="form-control">
+                                                <option value="#">2000</option>
+                                                <option value="#">4000</option>
+                                                <option value="#">6000</option>
+                                                <option value="#">8000</option>
+                                                <option value="#">10000</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block title %}
+Login
+{% endblock %}
+
+
+{% block content %}
+
+
+
+<section class="section gb ">
+    <div class="container">
+        <div class="boxed">
+            <div class="row py-3">
+                <div class="col-md-8 mx-auto">
+
+
+
+
+                    <div class="content boxed-comment clearfix">
+
+
+
+                        <form class="big-contact-form" method="post" action="{% url 'login' %}">
+
+
+                            {% csrf_token %}
+                            {{ form|crispy}}
+                            <div class="row">
+
+                                <div class="col-md-12 float-right"><a class="float-right"
+                                        href="{% url 'password_reset' %}">Lost
+                                        password? </a></div>
+
+                            </div>
+
+
+                            <button type="submit" class="btn btn-primary btn-block mt-3">Login</button>
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-12 mt-5 text-center"><a class="text-center"
+                                        href="{% url 'signup' %}">Don't
+                                        have an
+                                        account?
+                                        Sign
+                                        Up </a></div>
+                            </div>
+
+
+                    </div>
+
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
