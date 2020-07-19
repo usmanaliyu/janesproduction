@@ -102,11 +102,11 @@ WSGI_APPLICATION = 'djecommerce.wsgi.application'
 
 
 DATABASES = {
-      'default': {
-          'ENGINE': 'django.db.backends.sqlite3',
-          'NAME': 'db.sqlite3',
-      }
-  }
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'db.sqlite3',
+    }
+}
 
 # DATABASES = {
 #     'default': {
@@ -119,7 +119,7 @@ DATABASES = {
 #     }
 # }
 
-#DATABASES = {
+# DATABASES = {
 #    'default': {
 #        'ENGINE': 'django.db.backends.postgresql_psycopg2',
 #        'NAME': 'myproject',
@@ -128,7 +128,7 @@ DATABASES = {
 #        'HOST': 'localhost',
 #        'PORT': '',
 #    }
-#}
+# }
 
 
 # Password validation

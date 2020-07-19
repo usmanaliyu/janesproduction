@@ -1,6 +1,7 @@
 {% extends 'dashboard/base.html'%}
 {% load static %}
 
+{% load humanize %}
 {% block content %}
 <div class="wrapper ">
   {% include 'dashboard/sidebar.html' %}
@@ -15,18 +16,18 @@
         <div class="col-md-12">
           <div class="card">
             <div class="card-header">
-              <h4 class="card-title"> Orders by {{ view.kwargs.username }}</h4>
+              <h4 class="card-title text-center"> Orders by {{ view.kwargs.username|title }}</h4>
             </div>
 
 
 
-           
 
-            
-            
-          </br>
-           
-        
+
+
+
+            </br>
+
+
 
 
 
@@ -36,48 +37,46 @@
             <div class="col-md-10 mx-auto">
 
               {% for order in instance %}
-              {% if order %}
+              {% if order.ordered == True  %}
               <div class="card-body">
 
                 <div class="row">
-                 
+
                   <div class="col-md-7 ">
-                    <h4>order id = {{ order.order_id }} </h4>
+                    <h4>Order id = {{ order.order_id }} </h4>
                     <ul>
-                      
-                      <li>items = {{ order.items.name }} </li>
-                      <li>payment method = {{ order.payment }}</li>
-          
-                      <li>Beign delivered = {{ order.being_delivered }}</li>
-                      <li>Order Revieved = {{ order.received }}</li>
-                      <li>Refund request = {{ order.refund_requested }}</li>
-                      <li>Refund Granted {{ order.refund_granted  }}</li>
-                      
-          
-          
-                     <li> order status: {% if order.ordered == True %} Ordered {% else %} Order not placed {% endif %}</li>
+
+                      <li>Item Name = {{ order.items.title|title }} </li>
+                      <li>Amount = &#8358; {{ order.payment.amount|intcomma}}</li>
+                      <li>Date = {{ order.ordered_date}}</li>
+
+
+
+
+                      <li> Order status: {% if order.ordered == True %} Ordered {% else %} Order not placed {% endif %}
+                      </li>
                     </ul>
                   </div>
-                  
+
                 </div>
               </div>
               {% else %}
               <p>No order avilable</p>
               {% endif %}
               {% endfor %}
-             
 
-                
-              </div>
 
 
             </div>
 
+
           </div>
+
         </div>
       </div>
     </div>
-
   </div>
+
+</div>
 </div>
 {% endblock %}
