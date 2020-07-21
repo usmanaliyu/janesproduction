@@ -94,6 +94,7 @@ TEMPLATES = [
 #         },
 #     },
 # ]
+
 WSGI_APPLICATION = 'djecommerce.wsgi.application'
 
 
