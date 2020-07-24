@@ -32,6 +32,7 @@
 {% endfor %}
 
 
+
 <section class="ftco-section bg-light">
   <div class="container">
     <div class="row justify-content-center mb-0 pb-0">
@@ -45,10 +46,13 @@
     <div class="row">
       {% for item in object_list %}
       {% if item.new_arrival == True %}
-      <!-- <div class="col-sm-5 col-md-6 col-lg-3 d-flex"> -->
+
+
 
       <div class="col-lg-3 col-md-4 col-6 col-6">
+
         <div class="product d-flex flex-column">
+
           {% thumbnail item.image  "250x250" crop="center" as jane %}
           <a href="{{ item.get_absolute_url }}" class="img-prod"><img class="img-fluid" width="{{ jane.width }}"
               src="{{ jane.url }}" height="{{jane.height}}" alt="Janes fashion">
@@ -73,16 +77,72 @@
                 {% endif %} <br>
                 <span class="price-sale">&#8358; {{item.price|intcomma}}</span></p>
             </div>
-            <p class="bottom-area d-flex px-3">
-              <a href="{{ item.get_add_to_cart_url }}" class="add-to-cart text-center btn mr-1"><span>Add to cart <i
-                    class="ion-ios-add ml-1"></i></span></a>
 
-            </p>
+          </div>
+
+        </div>
+      </div>
+
+
+
+
+      {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+
+
+
+<section class="ftco-section ">
+  <div class="container">
+    <div class="row justify-content-center mb-0 pb-0">
+      <div class="col-sm-12 heading-section text-center ">
+        <h2 class="mb-1">Featured Footwear</h2>
+        <p>Summer 2020 Collection</p>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row">
+      {% for item in object_list %}
+      {% if item.label == 'featured_footwear' %}
+      <!-- <div class="col-sm-5 col-md-6 col-lg-3  d-flex"> -->
+      <div class="col-lg-3 col-md-4 col-6 col-6">
+        <div class="product d-flex flex-column">
+          {% thumbnail item.image  "250x250" crop="center" as jane %}
+          <a href="{{ item.get_absolute_url }}" class="img-prod"><img class="img-fluid" width="{{ jane.width }}"
+              src="{{ jane.url }}" height="{{jane.height}}" alt="Janes fashion">
+            {% endthumbnail %}
+            {% if item.discount_percent %}
+            <span class="status">{{ item.discount_percent }} % Off</span>
+            {% endif %}
+            <div class="overlay"></div>
+          </a>
+          <div class="text py-3 pb-4 px-3">
+            <div class="d-flex">
+              <div class="cat">
+                <span>{{ item.category  }}</span>
+              </div>
+
+            </div>
+            <h3><a href="{{ item.get_absolute_url }}">{{ item.title }}</a></h3>
+            <div class="pricing">
+              <p class="price">
+                {% if item.discount_price %}
+                <span class="mr-2 price-dc"> &#8358; {{item.discount_price|intcomma}}</span> <br>
+
+                {% endif %}
+                <span class="price-sale">&#8358; {{item.price|intcomma}}</span></p>
+            </div>
+
           </div>
         </div>
       </div>
       {% endif %}
       {% endfor %}
+
     </div>
   </div>
 </section>
@@ -93,10 +153,30 @@
 
 
 
+<section class="ftco-section ">
+  <div class="container">
+    <div class="row no-gutters">
+      {% for item in hometop %}
+      <div class="col-md-6 pb-2 pr-1">
+
+        <a href="{{item.link}}">
+
+          <img src="{{item.image.url }}" style="width:100%; height: 250px;"
+            lass="choose-wrap divider-one img img-fluid mb-3 pb-2 d-flex align-items-end" alt="">
+
+          <div class="text text-center text-white px-2 ">
 
 
+          </div>
 
+        </a>
+      </div>
+      {% endfor %}
 
+    </div>
+  </div>
+  <br><br>
+</section>
 
 
 
@@ -140,11 +220,7 @@
                 {% endif %}
                 <span class="price-sale">&#8358; {{item.price|intcomma}}</span></p>
             </div>
-            <p class="bottom-area d-flex px-3">
-              <a href="{{ item.get_add_to_cart_url }}" class="add-to-cart text-center btn mr-1"><span>Add to cart <i
-                    class="ion-ios-add ml-1"></i></span></a>
 
-            </p>
           </div>
         </div>
       </div>
@@ -197,11 +273,7 @@
                 {% endif %}
                 <span class="price-sale">&#8358; {{item.price|intcomma}}</span></p>
             </div>
-            <p class="bottom-area d-flex px-3">
-              <a href="{{ item.get_add_to_cart_url }}" class="add-to-cart text-center btn mr-1"><span>Add to cart <i
-                    class="ion-ios-add ml-1"></i></span></a>
 
-            </p>
           </div>
         </div>
       </div>
@@ -255,11 +327,7 @@
                 {% endif %}
                 <span class="price-sale">&#8358; {{item.price|intcomma}}</span></p>
             </div>
-            <p class="bottom-area d-flex px-3">
-              <a href="{{ item.get_add_to_cart_url }}" class="add-to-cart text-center btn mr-1"><span>Add to cart <i
-                    class="ion-ios-add ml-1"></i></span></a>
 
-            </p>
           </div>
         </div>
       </div>
@@ -276,118 +344,8 @@
 
 
 
-<section class="ftco-section ">
-  <div class="container">
-    <div class="row justify-content-center mb-0 pb-0">
-      <div class="col-sm-12 heading-section text-center ">
-        <h2 class="mb-1">Featured Footwear</h2>
-        <p>Summer 2020 Collection</p>
-      </div>
-    </div>
-  </div>
-  <div class="container">
-    <div class="row">
-      {% for item in object_list %}
-      {% if item.label == 'featured_footwear' %}
-      <!-- <div class="col-sm-5 col-md-6 col-lg-3  d-flex"> -->
-      <div class="col-lg-3 col-md-4 col-6 col-6">
-        <div class="product d-flex flex-column">
-          {% thumbnail item.image  "250x250" crop="center" as jane %}
-          <a href="{{ item.get_absolute_url }}" class="img-prod"><img class="img-fluid" width="{{ jane.width }}"
-              src="{{ jane.url }}" height="{{jane.height}}" alt="Janes fashion">
-            {% endthumbnail %}
-            {% if item.discount_percent %}
-            <span class="status">{{ item.discount_percent }} % Off</span>
-            {% endif %}
-            <div class="overlay"></div>
-          </a>
-          <div class="text py-3 pb-4 px-3">
-            <div class="d-flex">
-              <div class="cat">
-                <span>{{ item.category  }}</span>
-              </div>
-
-            </div>
-            <h3><a href="{{ item.get_absolute_url }}">{{ item.title }}</a></h3>
-            <div class="pricing">
-              <p class="price">
-                {% if item.discount_price %}
-                <span class="mr-2 price-dc"> &#8358; {{item.discount_price|intcomma}}</span> <br>
-
-                {% endif %}
-                <span class="price-sale">&#8358; {{item.price|intcomma}}</span></p>
-            </div>
-            <p class="bottom-area d-flex px-3">
-              <a href="{{ item.get_add_to_cart_url }}" class="add-to-cart text-center btn mr-1"><span>Add to cart <i
-                    class="ion-ios-add ml-1"></i></span></a>
-
-            </p>
-          </div>
-        </div>
-      </div>
-      {% endif %}
-      {% endfor %}
-
-    </div>
-  </div>
-</section>
 
 
-
-<section class="ftco-section bg-light">
-  <div class="container">
-    <div class="row justify-content-center mb-0 pb-0">
-      <div class="col-sm-12 heading-section text-center ">
-        <h2 class="mb-1">Featured Accesories</h2>
-        <p>Summer 2020 Collection</p>
-      </div>
-    </div>
-  </div>
-  <div class="container">
-    <div class="row">
-      {% for item in object_list %}
-      {% if item.label == 'featured_accesories' %}
-      <!-- <div class="col-sm-5 col-md-6 col-lg-3 d-flex"> -->
-      <div class="col-lg-3 col-md-4 col-6 col-6">
-        <div class="product d-flex flex-column">
-          {% thumbnail item.image  "250x250" crop="center" as jane %}
-          <a href="{{ item.get_absolute_url }}" class="img-prod"><img class="img-fluid" width="{{ jane.width }}"
-              src="{{ jane.url }}" height="{{jane.height}}" alt="Janes fashion">
-            {% endthumbnail %}
-            {% if item.discount_percent %}
-            <span class="status">{{ item.discount_percent }} % Off</span>
-            {% endif %}
-            <div class="overlay"></div>
-          </a>
-          <div class="text py-3 pb-4 px-3">
-            <div class="d-flex">
-              <div class="cat">
-                <span>{{ item.category  }}</span>
-              </div>
-
-            </div>
-            <h3><a href="{{ item.get_absolute_url }}">{{ item.title }}</a></h3>
-            <div class="pricing">
-              <p class="price">
-                {% if item.discount_price %}
-                <span class="mr-2 price-dc"> &#8358; {{item.discount_price|intcomma}}</span> <br>
-                {% endif %}
-                <span class="price-sale">&#8358; {{item.price|intcomma}}</span></p>
-            </div>
-            <p class="bottom-area d-flex px-3">
-              <a href="{{ item.get_add_to_cart_url }}" class="add-to-cart text-center btn mr-1"><span>Add to cart <i
-                    class="ion-ios-add ml-1"></i></span></a>
-
-            </p>
-          </div>
-        </div>
-      </div>
-      {% endif %}
-      {% endfor %}
-
-    </div>
-  </div>
-</section>
 
 
 
@@ -443,31 +401,6 @@
 
 
 
-<section class="ftco-section ">
-  <div class="container">
-    <div class="row no-gutters">
-      {% for item in hometop %}
-      <div class="col-md-6 pb-2 pr-1">
-
-        <a href="{{item.link}}">
-
-          <img src="{{item.image.url }}" style="width:100%; height: 250px;"
-            lass="choose-wrap divider-one img img-fluid mb-3 pb-2 d-flex align-items-end" alt="">
-
-          <div class="text text-center text-white px-2 ">
-
-
-          </div>
-
-        </a>
-      </div>
-      {% endfor %}
-
-    </div>
-  </div>
-  <br><br>
-</section>
-
 
 
 
@@ -476,10 +409,10 @@
 <section class="ftco-section ftco-degree-bg ftco-choose ftco-no-pb ftco-no-pt">
   <div class="container">
     <div class="row">
-      <div class="col-lg-8 order-lg-last ">
+      <div class="col-lg-12 order-lg-last ">
         <div class="row">
           {% for item in homeside %}
-          <div class="col-md-12 pb-2">
+          <div class="col-md-6 pb-2">
 
 
             <a href="{{item.link}}"> <img src="{{item.image.url}}" style="width:100%; height: 250px;"

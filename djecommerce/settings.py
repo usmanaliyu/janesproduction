@@ -94,7 +94,6 @@ TEMPLATES = [
 #         },
 #     },
 # ]
-
 WSGI_APPLICATION = 'djecommerce.wsgi.application'
 
 
@@ -102,12 +101,12 @@ WSGI_APPLICATION = 'djecommerce.wsgi.application'
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'db.sqlite3',
-    }
-}
+# DATABASES = {
+#       'default': {
+#           'ENGINE': 'django.db.backends.sqlite3',
+#           'NAME': 'db.sqlite3',
+#       }
+#   }
 
 # DATABASES = {
 #     'default': {
@@ -120,16 +119,16 @@ DATABASES = {
 #     }
 # }
 
-# DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#        'NAME': 'myproject',
-#        'USER': 'myprojectuser',
-#        'PASSWORD': 'password',
-#        'HOST': 'localhost',
-#        'PORT': '',
-#    }
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'myproject',
+        'USER': 'myprojectuser',
+        'PASSWORD': 'password',
+        'HOST': 'localhost',
+        'PORT': '',
+    }
+}
 
 
 # Password validation
