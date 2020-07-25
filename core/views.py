@@ -113,7 +113,7 @@ class CheckoutView(View):
                 use_default_shipping = form.cleaned_data.get(
                     'use_default_shipping')
                 if use_default_shipping:
-                    print("Using the defualt shipping address")
+                    print("Using the default shipping address")
                     address_qs = Address.objects.filter(
                         user=self.request.user,
                         address_type='S',
@@ -382,15 +382,14 @@ class PaymentView(View):
 
 
 def HomeView(request):
-    category_list = Category.objects.all()[:10]
-    object_list = Item.objects.all().order_by('-pub_date')[:10]
-    bag_list = Item.objects.filter(category__name='bag')[:10]
-    shoe_list = Item.objects.filter(category__name='shoe')[:10]
-    wear_list = Item.objects.filter(category__name='wear')[:10]
-    access_list = Item.objects.filter(category__name='accessories')[:10]
+    category_list = Category.objects.all()
+    object_list = Item.objects.all().order_by('-pub_date')[:20]
+    bag_list = Item.objects.filter(category__name='bag')
+    shoe_list = Item.objects.filter(category__name='shoe')
+    wear_list = Item.objects.filter(category__name='wear')
+    access_list = Item.objects.filter(category__name='accessories')
     hometop = HomepageBanner.objects.all()[:2]
     homeside = HomesideBanner.objects.all()[:2]
-    shoptop = ShoptopBanner.objects.all()[:4]
     slider = Slider.objects.all()[:1]
     paginator = Paginator(object_list, 20)  # Show 25 contacts per page.
     page_number = request.GET.get('page')
@@ -581,7 +580,7 @@ def get_coupon(request, code):
     try:
         coupon = Coupon.objects.get(code=code)
         return coupon
-    except :
+    except:
         messages.info(request, "This coupon does not exist")
         return redirect("core:checkout")
 
@@ -599,7 +598,7 @@ class AddCouponView(View):
                 messages.success(self.request, "Successfully added coupon")
                 return redirect("core:checkout")
             except:
-                
+
                 return redirect("core:checkout")
 
 
